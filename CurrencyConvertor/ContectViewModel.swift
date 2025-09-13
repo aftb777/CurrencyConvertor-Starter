@@ -11,6 +11,8 @@ class ContectViewModel : ObservableObject {
     
     @Published var converted = 1.0
     @Published var amount = 1.0
+    @Published var baseCurrency : CurrencyChoice = .Usa
+    @Published var convertedCurrency : CurrencyChoice = .Euro
     
     // Computed property for currency
     // Here type is NumberFormatter and now it is also an Object

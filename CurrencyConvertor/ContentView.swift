@@ -22,6 +22,34 @@ struct ContentView: View {
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 5)
                     .stroke(Color.gray, lineWidth: 1))
+                .overlay(alignment: .trailing) {
+                    HStack {
+                        viewModel.baseCurrency.image()
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 30, height: 30)
+                            .clipShape(Circle())
+                        Menu {
+                            ForEach(CurrencyChoice.allCases) { currencyChoice in
+                                Button {
+                                    viewModel.baseCurrency = currencyChoice
+                                } label: {
+                                    Text(currencyChoice.fetchMenuName())
+                                }
+
+                            }
+                        } label: {
+                            Text(viewModel.baseCurrency.rawValue)
+                                .foregroundStyle(.black)
+                                .bold(true)
+                            Image(systemName: "chevron.down")
+                                .foregroundStyle(.black)
+                                .bold(true)
+                        }
+
+                    }
+                    .padding(.horizontal)
+                }
                 
             HStack{
                 // Spacer()
@@ -41,6 +69,35 @@ struct ContentView: View {
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 5)
                     .stroke(Color.gray, lineWidth: 1))
+            
+                .overlay(alignment: .trailing) {
+                    HStack {
+                        viewModel.convertedCurrency.image()
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 30, height: 30)
+                            .clipShape(Circle())
+                        Menu {
+                            ForEach(CurrencyChoice.allCases) { currencyChoice in
+                                Button {
+                                    viewModel.convertedCurrency = currencyChoice
+                                } label: {
+                                    Text(currencyChoice.fetchMenuName())
+                                }
+
+                            }
+                        } label: {
+                            Text(viewModel.convertedCurrency.rawValue)
+                                .foregroundStyle(.black)
+                                .bold(true)
+                            Image(systemName: "chevron.down")
+                                .foregroundStyle(.black)
+                                .bold(true)
+                        }
+
+                    }
+                    .padding(.horizontal)
+                }
         }
         .padding(.horizontal)
     }

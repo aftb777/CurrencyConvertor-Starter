@@ -57,10 +57,10 @@
 			children = (
 				2066DA042B93522F00AF726C /* CurrencyConvertorApp.swift */,
 				2066DA062B93522F00AF726C /* ContentView.swift */,
+				27D2E6A52E7574C900E9D760 /* ContectViewModel.swift */,
 				2020EB262B93B5A000C60D05 /* CurrencyChoice.swift */,
 				2066DA082B93523100AF726C /* Assets.xcassets */,
 				2066DA0A2B93523100AF726C /* Preview Content */,
-				27D2E6A52E7574C900E9D760 /* ContectViewModel.swift */,
 			);
 			path = CurrencyConvertor;
 			sourceTree = "<group>";
