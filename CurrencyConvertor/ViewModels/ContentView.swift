@@ -10,6 +10,8 @@ struct ContentView: View {
     
     @StateObject private var viewModel = ContectViewModel()
     
+    @FocusState private var baseAmountIsFocused: Bool
+    @FocusState private var convertedAmountIsFocused: Bool
     
     var body: some View {
         ZStack {
@@ -27,6 +29,7 @@ struct ContentView: View {
                     .bold(true)
                 
                 TextField("", value: $viewModel.baseAmount, formatter: NumberFormatter())
+                    .focused($baseAmountIsFocused)
                     .onSubmit {
                         viewModel.convert()
                     }
@@ -77,6 +80,7 @@ struct ContentView: View {
                     .bold(true)
                 
                 TextField("", value: $viewModel.convertedAmount, formatter: NumberFormatter())
+                    .focused($convertedAmountIsFocused)
                     .font(.system(size: 18))
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 5)
@@ -126,6 +130,8 @@ struct ContentView: View {
         }
         .onTapGesture {
             viewModel.convert()
+            baseAmountIsFocused = false
+            convertedAmountIsFocused = false
         }
     }
 }

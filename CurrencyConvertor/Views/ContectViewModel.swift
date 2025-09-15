@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class ContectViewModel : ObservableObject {
     
     @Published var convertedAmount : Double = 1.0
