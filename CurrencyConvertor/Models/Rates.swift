@@ -8,5 +8,9 @@
 import Foundation
 
 struct Rates : Decodable {
-    let rates : [String : Double]
+    let data : [String : Double]
+    
+    var rates : [String : Double]{
+        return data
+    }
 }

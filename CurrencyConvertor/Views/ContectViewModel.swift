@@ -9,10 +9,10 @@ import Foundation
 
 class ContectViewModel : ObservableObject {
     
-    @Published var converted = 1.0
-    @Published var amount = 1.0
+    @Published var convertedAmount : Double = 1.0
+    @Published var baseAmount : Double = 1.0
     @Published var baseCurrency : CurrencyChoice = .Usa
-    @Published var convertedCurrency : CurrencyChoice = .Euro
+    @Published var convertedCurrency : CurrencyChoice = .Usa
     @Published var rates : Rates?
     @Published var isLoading : Bool = false
     @Published var errorMessage : String = ""
@@ -25,11 +25,13 @@ class ContectViewModel : ObservableObject {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         numberFormatter.currencySymbol = ""
+        numberFormatter.maximumFractionDigits = 4
+        numberFormatter.minimumFractionDigits = 2
         return numberFormatter
     }
     
     func fetchRates() async {
-        let baseUrl = "YOUR API KEYS"
+        let baseUrl = "YOUR API KEY"
         guard let url = URL(string: baseUrl) else {
             errorMessage = "Could not fetch rates"
             return
@@ -46,5 +48,13 @@ class ContectViewModel : ObservableObject {
             print(error.localizedDescription)
         }
         isLoading = false
+    }
+    
+    func convert() {
+        if let rates = rates,
+           let baseExchangeRate = rates.rates[baseCurrency.rawValue],
+           let convertedExchangeRate = rates.rates[convertedCurrency.rawValue] {
+            convertedAmount = (convertedExchangeRate / baseExchangeRate) * baseAmount
+        }
     }
 }

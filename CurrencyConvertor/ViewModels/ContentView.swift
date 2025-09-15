@@ -26,7 +26,10 @@ struct ContentView: View {
                     .font(.system(size: 18))
                     .bold(true)
                 
-                TextField("", value: $viewModel.amount, formatter: NumberFormatter())
+                TextField("", value: $viewModel.baseAmount, formatter: NumberFormatter())
+                    .onSubmit {
+                        viewModel.convert()
+                    }
                     .font(.system(size: 18))
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 5)
@@ -73,7 +76,7 @@ struct ContentView: View {
                     .font(.system(size: 18))
                     .bold(true)
                 
-                TextField("", value: $viewModel.converted, formatter: NumberFormatter())
+                TextField("", value: $viewModel.convertedAmount, formatter: NumberFormatter())
                     .font(.system(size: 18))
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 5)
@@ -120,6 +123,9 @@ struct ContentView: View {
                         .tint(.white)
                 }
             }
+        }
+        .onTapGesture {
+            viewModel.convert()
         }
     }
 }
