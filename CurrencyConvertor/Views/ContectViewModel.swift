@@ -14,6 +14,8 @@ class ContectViewModel : ObservableObject {
     @Published var baseCurrency : CurrencyChoice = .Usa
     @Published var convertedCurrency : CurrencyChoice = .Euro
     @Published var rates : Rates?
+    @Published var isLoading : Bool = false
+    @Published var errorMessage : String = ""
     
     // Computed property for currency
     // Here type is NumberFormatter and now it is also an Object
@@ -28,13 +30,21 @@ class ContectViewModel : ObservableObject {
     
     func fetchRates() async {
         let baseUrl = "YOUR API KEYS"
-        let url = URL(string: baseUrl)!
+        guard let url = URL(string: baseUrl) else {
+            errorMessage = "Could not fetch rates"
+            return
+        }
+        
         let urlRequest = URLRequest(url: url)
+        
+        isLoading = true
         do {
             let(data, _) = try await URLSession.shared.data(for: urlRequest)
             rates = try JSONDecoder().decode(Rates.self, from: data)
         } catch {
+            errorMessage = "Could not fetch rates"
             print(error.localizedDescription)
         }
+        isLoading = false
     }
 }
